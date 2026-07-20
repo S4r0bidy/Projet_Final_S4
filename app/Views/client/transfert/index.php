@@ -203,7 +203,7 @@
                   <input type="checkbox" name="inclure_frais" class="form-check-input" id="inclure_frais_multiple" value="1"
                         onchange="calculerDetailsMultiple()">
                   <label class="form-check-label" for="inclure_frais_multiple">
-                    ☐ Inclure les frais de retrait
+                    Inclure les frais de retrait
                     <small class="text-muted d-block">(Chaque destinataire reçoit exactement sa part)</small>
                   </label>
                 </div>
