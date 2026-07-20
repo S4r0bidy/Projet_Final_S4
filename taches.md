@@ -11,9 +11,8 @@
 ## Phase 1 — Authentification
 
 ### Côté opérateur (admin)
-- [ ] Table + Model `Administrateurs`
+- [X] Table + Model `Administrateurs`
 - [ ] Formulaire de connexion (username / mot de passe hashé)
-- [ ] Middleware/filtre CI4 pour protéger les routes `admin/*`
 - [ ] Déconnexion
 
 ### Côté client
@@ -55,12 +54,4 @@
 - [ ] Gestion des erreurs métier : solde insuffisant, préfixe invalide, montant hors barème, compte destinataire introuvable
 - [ ] Journalisation systématique de chaque opération dans la table `operations`
 
-## Phase 5 — Finitions
-
-- [ ] Mise en forme des vues (CSS simple, lisible)
-- [ ] Messages de confirmation / erreur (flashdata CI4)
-- [ ] Jeux de données de test (via `base.sql`) : préfixes, types, barèmes, quelques comptes
-- [ ] Scénarios de test manuels : dépôt → retrait → transfert → vérification solde et historique
-- [ ] Relecture du cahier des charges vs fonctionnalités livrées
-- [ ] Préparer la présentation / démo
 

@@ -10,8 +10,9 @@ class DashboardController extends BaseController
     public function index()
     {
         $compteModel = new CompteClientModel();
-        $compte = $compteModel->find(session()->get('client_id'));
+        $compte = $compteModel->find((int) session()->get('client_id'));
 
         return view('client/dashboard', ['compte' => $compte]);
     }
 }
+

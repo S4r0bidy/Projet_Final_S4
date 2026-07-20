@@ -34,16 +34,16 @@
 # database.default.database = ci4
 # database.default.username = root
 # database.default.password = root
-# database.default.DBDriver = SQLite3
+# database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
 # database.default.port = 3306
 
-# If you use SQLite3 as tests, first update the values of Config\Database::$tests.
+# If you use MySQLi as tests, first update the values of Config\Database::$tests.
 # database.tests.hostname = localhost
-# database.tests.database = database.db
+# database.tests.database = ci4_test
 # database.tests.username = root
 # database.tests.password = root
-# database.tests.DBDriver = SQLite3
+# database.tests.DBDriver = MySQLi
 # database.tests.DBPrefix =
 # database.tests.charset = utf8mb4
 # database.tests.DBCollat = utf8mb4_general_ci
