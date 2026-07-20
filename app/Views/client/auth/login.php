@@ -11,8 +11,6 @@
 
 <div class="auth-card">
     <h1>Connexion</h1>
-    <p>Entrez votre numéro de téléphone pour accéder à votre compte.<br>
-       (Aucune inscription nécessaire — votre compte sera créé automatiquement.)</p>
 
     <?php if (session()->getFlashdata('error')) : ?>
         <div class="error"><?= esc(session()->getFlashdata('error')) ?></div>
@@ -43,8 +41,14 @@
             required
         >
 
+        <p>Entrez votre numéro de téléphone pour accéder à votre compte.<br>
+        
         <button type="submit">Se connecter</button>
     </form>
+
+    <p style="text-align:center; margin-top:20px;">
+        <a href="/admin/login" style="color:#6c757d; text-decoration:none;">Se connecter en tant qu'administrateur →</a>
+    </p>
 </div>
 
 </body>
