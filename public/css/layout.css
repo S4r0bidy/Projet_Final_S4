@@ -1,0 +1,126 @@
+/* ============================================================
+   LAYOUT.CSS - Styles communs à toutes les pages
+   ============================================================ */
+
+/* ---------- Réinitialisation & Base ---------- */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Navigation ---------- */
+nav {
+    max-width: 1100px;
+    margin: 0 auto 10px;
+}
+
+nav a {
+    margin-right: 12px;
+    text-decoration: none;
+    color: #1e88e5;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Conteneur principal ---------- */
+.wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ---------- Carte (card) ---------- */
+.card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    margin-top: 14px;
+}
+
+/* ---------- Messages d'alerte ---------- */
+.message {
+    color: #2e7d32;
+    margin-top: 10px;
+}
+
+.error {
+    color: #c62828;
+    margin-top: 10px;
+}
+
+ul.error-list {
+    color: #c62828;
+    padding-left: 18px;
+}
+
+/* ---------- Tableaux ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+th, td {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    font-weight: 600;
+}
+
+/* ---------- Champs de formulaire communs ---------- */
+input,
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #1e88e5;
+    box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.15);
+}
+
+button,
+.btn {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #1e88e5;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover,
+.btn:hover {
+    background: #1565c0;
+    text-decoration: none;
+}
+

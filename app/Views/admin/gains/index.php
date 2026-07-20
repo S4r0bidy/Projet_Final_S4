@@ -4,16 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gains - Frais</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f6f6f6; margin:0; padding:20px; }
-    nav a { margin-right:12px; text-decoration:none; color:#1e88e5; }
-    .card { background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.08); margin-top:14px; }
-    table{width:100%; border-collapse:collapse; margin-top:12px; }
-    th,td{border-bottom:1px solid #eee; padding:10px; text-align:left; }
-    .total { font-size:28px; font-weight:700; color:#2e7d32; margin-top:10px; }
-    .message{color:#2e7d32;}
-    .error{color:#c62828;}
-  </style>
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 <nav>
@@ -58,7 +50,7 @@
       </tbody>
     </table>
 
-    <div class="total">
+    <div class="total-gains">
       Total : <?= number_format((float)($totalGains ?? 0), 2, ',', ' ') ?> Ar
     </div>
   <?php endif; ?>

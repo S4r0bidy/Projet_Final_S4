@@ -4,16 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Historique</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f6f6f6; margin:0; padding:20px; }
-    nav a { margin-right:12px; text-decoration:none; color:#1e88e5; }
-    .card { background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.08); }
-    table{width:100%; border-collapse:collapse; margin-top:12px;}
-    th,td{border-bottom:1px solid #eee; padding:10px; text-align:left; font-size:14px;}
-  </style>
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/client.css">
 </head>
 <body>
-<nav style="max-width:900px; margin:0 auto;">
+<nav class="client-nav">
   <a href="/client/dashboard">Dashboard</a>
   <a href="/client/depot">Dépôt</a>
   <a href="/client/retrait">Retrait</a>
@@ -22,10 +17,8 @@
   <a href="/client/logout" style="float:right;">Déconnexion</a>
 </nav>
 
-
-<div class="card" style="max-width:1100px; margin:14px auto;">
+<div class="card historique-card">
   <h1>Historique des opérations</h1>
-
 
   <table>
     <thead>

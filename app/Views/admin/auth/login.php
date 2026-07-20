@@ -4,17 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connexion Admin</title>
-    <style>
-        body { font-family: Arial, sans-serif; background:#f6f6f6; padding:20px; }
-        .card { max-width:420px; margin:60px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.08); }
-        input { width:100%; padding:10px; margin:8px 0; border:1px solid #ddd; border-radius:6px; }
-        button { width:100%; padding:10px; background:#1e88e5; color:#fff; border:none; border-radius:6px; cursor:pointer; }
-        .error { color:#c62828; margin-top:10px; }
-        .message { color:#2e7d32; margin-top:10px; }
-    </style>
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
-<div class="card">
+<div class="auth-card">
     <h2>Connexion opérateur</h2>
 
     <?php if (session('message')): ?>
@@ -46,7 +40,7 @@
     </form>
 
     <br>
-    <a href="/" style="display:block; text-align:center; color:#1e88e5; text-decoration:none;">&larr; Retour à l'accueil</a>
+    <a href="/" class="back-link">&larr; Retour à l'accueil</a>
 </div>
 </body>
 </html>

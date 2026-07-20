@@ -2,24 +2,28 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Connexion Client</title>
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
 
+<div class="auth-card">
     <h1>Connexion</h1>
     <p>Entrez votre numéro de téléphone pour accéder à votre compte.<br>
        (Aucune inscription nécessaire — votre compte sera créé automatiquement.)</p>
 
     <?php if (session()->getFlashdata('error')) : ?>
-        <div style="color:red;"><?= esc(session()->getFlashdata('error')) ?></div>
+        <div class="error"><?= esc(session()->getFlashdata('error')) ?></div>
     <?php endif; ?>
 
     <?php if (session()->getFlashdata('message')) : ?>
-        <div style="color:green;"><?= esc(session()->getFlashdata('message')) ?></div>
+        <div class="message"><?= esc(session()->getFlashdata('message')) ?></div>
     <?php endif; ?>
 
     <?php if (isset($errors)) : ?>
-        <ul style="color:red;">
+        <ul class="error-list">
             <?php foreach ($errors as $error) : ?>
                 <li><?= esc($error) ?></li>
             <?php endforeach; ?>
@@ -41,6 +45,7 @@
 
         <button type="submit">Se connecter</button>
     </form>
+</div>
 
 </body>
 </html>

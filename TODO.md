@@ -1,36 +1,33 @@
-# TODO - Projet Mobile Money (Sarobidy)
+# Projet de refactorisation CSS - Terminé ✅
 
-## Étape 1 — Sécurité & Auth admin
-- [X] Créer `app/Filters/AdminAuthFilter.php`
-- [X] Créer `app/Controllers/Admin/AuthAdminController.php`
+## Fichiers CSS créés
+- ✅ `public/css/layout.css` — Styles communs (body, nav, card, table, input, button, .error, .message)
+- ✅ `public/css/client.css` — Styles spécifiques client (dashboard, transactions, historique)
+- ✅ `public/css/admin.css` — Styles spécifiques admin (stats, badges, formulaires, gains)
+- ✅ `public/css/auth.css` — Styles pour les pages de connexion
 
+## Vues modifiées (16 fichiers)
+### Section Client (5 vues)
+- ✅ `app/Views/client/dashboard.php`
+- ✅ `app/Views/client/depot/index.php`
+- ✅ `app/Views/client/retrait/index.php`
+- ✅ `app/Views/client/transfert/index.php`
+- ✅ `app/Views/client/historique/index.php`
 
-## Étape 2 — Côté opérateur (admin)
-- [X] Créer `app/Controllers/Admin/DashboardController.php` + vue
-- [X] Créer `app/Controllers/Admin/OperateurController.php` + vues
-- [X] Créer `app/Controllers/Admin/PrefixeController.php` + vues
-- [X] Créer `app/Controllers/Admin/BaremeFraisController.php` + vues
+### Section Auth (2 vues)
+- ✅ `app/Views/client/auth/login.php`
+- ✅ `app/Views/admin/auth/login.php`
 
-  - [ ] Validation non-chevauchement des tranches
-- [ ] Créer `app/Controllers/Admin/CompteClientController.php` + vues
-- [ ] Créer `app/Controllers/Admin/GainController.php` + vues
+### Section Admin (9 vues)
+- ✅ `app/Views/admin/dashboard/index.php`
+- ✅ `app/Views/admin/prefixes/index.php`
+- ✅ `app/Views/admin/operateurs/index.php`
+- ✅ `app/Views/admin/baremes/index.php`
+- ✅ `app/Views/admin/baremes/edit.php`
+- ✅ `app/Views/admin/comptes/index.php`
+- ✅ `app/Views/admin/comptes/show.php`
+- ✅ `app/Views/admin/gains/index.php`
 
-## Étape 3 — Côté client
-- [X] Créer `app/Controllers/Client/DashboardController.php` (si manque déjà) + vue
-- [X] Créer `app/Controllers/Client/DepotController.php` + vue
-- [X] Créer `app/Controllers/Client/RetraitController.php` + vue
-- [X] Créer `app/Controllers/Client/TransfertController.php` + vue
-- [X] Créer `app/Controllers/Client/HistoriqueController.php` + vue
-
-
-## Étape 4 — Logique métier opérations
-- [X] Dépôt : crédit solde + insertion operation (frais=0)
-- [ ] Retrait : vérifier solde suffisant (montant + frais), calcul frais par tranche, insertion operation
-- [ ] Transfert : créer destination si préfixe actif, calcul frais transfert, débit/crédit + insertion operation
-- [X] Utiliser `OperationModel::genererReference()`
-
-## Étape 5 — Tests manuels
-- [ ] Tester admin : activer préfixe, modifier barèmes
-- [ ] Tester client : dépôt, retrait, transfert, historique
-- [ ] Tester admin : gains et situation comptes
+### Non modifié (conservé tel quel)
+- `app/Views/welcome_message.php` — Page par défaut de CodeIgniter
 

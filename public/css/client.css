@@ -1,0 +1,88 @@
+/* ============================================================
+   CLIENT.CSS - Styles spécifiques à l'espace client
+   ============================================================ */
+
+/* ---------- Navigation client ---------- */
+.client-nav {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ---------- Dashboard client ---------- */
+.dashboard-value {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.dashboard-value + div {
+    margin-top: 4px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.btnbox {
+    display: block;
+    background: #1e88e5;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.btnbox:hover {
+    background: #1565c0;
+    text-decoration: none;
+}
+
+/* ---------- Formulaires de transaction (dépôt, retrait, transfert) ---------- */
+.transaction-card {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.transaction-card label {
+    display: block;
+    margin-top: 14px;
+    font-weight: 500;
+}
+
+.transaction-card input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-top: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.transaction-card button {
+    width: 100%;
+    padding: 10px;
+    background: #1e88e5;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 14px;
+    font-size: 14px;
+}
+
+.transaction-card button:hover {
+    background: #1565c0;
+}
+
+/* ---------- Historique client ---------- */
+.historique-card {
+    max-width: 1100px;
+    margin: 14px auto;
+}
+

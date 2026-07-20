@@ -4,17 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Détail du compte</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f6f6f6; margin:0; padding:20px; }
-    nav a { margin-right:12px; text-decoration:none; color:#1e88e5; }
-    .card { background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.08); margin-top:14px; }
-    table{width:100%; border-collapse:collapse; margin-top:12px; }
-    th,td{border-bottom:1px solid #eee; padding:10px; text-align:left; }
-    .badge{display:inline-block; padding:4px 10px; border-radius:20px; font-size:12px; }
-    .actif{background:#e8f5e9; color:#2e7d32; }
-    .bloque{background:#ffebee; color:#c62828; }
-    .value { font-size:28px; font-weight:700; }
-  </style>
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 <nav>
@@ -33,14 +24,14 @@
   <p><strong>Numéro :</strong> <?= esc($compte['numero_telephone'] ?? '') ?></p>
   <p><strong>Statut :</strong>
     <?php if (($compte['statut'] ?? '') === 'ACTIF'): ?>
-      <span class="badge actif">Actif</span>
+      <span class="badge badge-actif">Actif</span>
     <?php else: ?>
-      <span class="badge bloque">Bloqué</span>
+      <span class="badge badge-bloque">Bloqué</span>
     <?php endif; ?>
   </p>
   <p><strong>Date de création :</strong> <?= esc($compte['date_creation'] ?? '') ?></p>
 
-  <div class="value"><?= number_format((float)($compte['solde'] ?? 0), 2, ',', ' ') ?> Ar</div>
+  <div class="dashboard-value"><?= number_format((float)($compte['solde'] ?? 0), 2, ',', ' ') ?> Ar</div>
   <p>Solde actuel</p>
 </div>
 

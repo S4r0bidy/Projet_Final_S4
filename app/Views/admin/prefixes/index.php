@@ -4,20 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Préfixes</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f6f6f6; margin:0; padding:20px; }
-    nav a { margin-right:12px; text-decoration:none; color:#1e88e5; }
-    .card { background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.08); }
-    input, select { padding:10px; border:1px solid #ddd; border-radius:6px; }
-    button { padding:10px 14px; border:none; border-radius:6px; background:#1e88e5; color:#fff; cursor:pointer; }
-    .error{color:#c62828;}
-    .message{color:#2e7d32;}
-    table{width:100%; border-collapse:collapse; margin-top:12px;}
-    th,td{border-bottom:1px solid #eee; padding:10px; text-align:left;}
-    .badge{display:inline-block; padding:4px 10px; border-radius:20px; font-size:12px;}
-    .actif{background:#e8f5e9; color:#2e7d32;}
-    .inactif{background:#ffebee; color:#c62828;}
-  </style>
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 <nav>
@@ -68,9 +56,9 @@
         <td><?= esc($p['operateur_nom'] ?? '') ?></td>
         <td>
           <?php if ((int)$p['actif'] === 1): ?>
-            <span class="badge actif">Actif</span>
+            <span class="badge badge-actif">Actif</span>
           <?php else: ?>
-            <span class="badge inactif">Inactif</span>
+            <span class="badge badge-inactif">Inactif</span>
           <?php endif; ?>
         </td>
         <td>
