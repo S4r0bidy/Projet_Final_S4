@@ -16,7 +16,7 @@
   <a href="/client/historique">Historique</a>
   <a href="/client/logout" style="float:right;">Déconnexion</a>
 </nav>
-
+<br>
 <div class="card transaction-card">
   <h1>Faire un transfert</h1>
 

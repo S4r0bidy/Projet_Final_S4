@@ -48,6 +48,7 @@ nav a:hover {
 
 /* ---------- Carte (card) ---------- */
 .card {
+    margin-top: 14px;
     background: #fff;
     padding: 16px;
     border-radius: 10px;

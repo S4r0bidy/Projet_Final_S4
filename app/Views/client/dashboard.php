@@ -15,7 +15,7 @@
     <a href="/client/retrait">Retrait</a>
     <a href="/client/transfert">Transfert</a>
     <a href="/client/historique">Historique</a>
-    <a href="/admin/login" style="color:#6c757d;" title="Accéder au mode administrateur">🔧 Admin</a>
+    <a href="/admin/login" style="color:#6c757d;" title="Accéder au mode administrateur">Admin</a>
     <a href="/client/logout" style="float:right; margin-right:0;">Déconnexion</a>
   </nav>
 
