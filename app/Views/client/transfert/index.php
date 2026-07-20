@@ -33,16 +33,10 @@
         </div>
     </nav>
 
-
-
-
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-7">
         <div class="card shadow-sm p-4">
           <h1 class="h3 mb-4">Faire un transfert</h1>
-
-
-
 
           <?php if (session('message')): ?>
             <div class="alert alert-success"><?= esc(session('message')) ?></div>
@@ -51,16 +45,10 @@
             <div class="alert alert-danger"><?= esc(session('error')) ?></div>
           <?php endif; ?>
 
-
-
-
           <!-- Message d'information opérateur -->
           <div id="operateur-info" class="alert alert-info d-none">
             <span id="operateur-nom"></span>
           </div>
-
-
-
 
           <!-- Navigation entre mode simple et multiple -->
           <ul class="nav nav-tabs mb-4" id="transfertTabs" role="tablist">
@@ -76,9 +64,6 @@
             </li>
           </ul>
 
-
-
-
           <div class="tab-content">
             <!-- === TRANSFERT SIMPLE === -->
             <div class="tab-pane fade show active" id="simple" role="tabpanel">
@@ -89,17 +74,11 @@
                         oninput="verifierOperateur(this.value, 'simple'); calculerDetailsSimple();">
                 </div>
 
-
-
-
                 <div class="mb-3">
                   <label class="form-label">Montant</label>
                   <input type="number" step="0.01" min="100" name="montant" class="form-control" required
                         oninput="calculerDetailsSimple()">
                 </div>
-
-
-
 
                 <div class="mb-3 form-check">
                   <input type="checkbox" name="inclure_frais" class="form-check-input" id="inclure_frais_simple" value="1"
@@ -109,9 +88,6 @@
                     <small class="text-muted d-block">(Le destinataire reçoit exactement le montant saisi)</small>
                   </label>
                 </div>
-
-
-
 
                 <!-- Détail des montants - Transfert simple -->
                 <div id="detail-simple" class="d-none">
@@ -150,15 +126,9 @@
                   </table>
                 </div>
 
-
-
-
                 <button type="submit" class="btn btn-primary w-100">Confirmer le transfert</button>
               </form>
             </div>
-
-
-
 
             <!-- === TRANSFERT MULTIPLE === -->
             <div class="tab-pane fade" id="multiple" role="tabpanel">
@@ -168,9 +138,6 @@
                   <input type="number" step="0.01" min="100" name="montant_total" class="form-control" required
                         id="montant_total" oninput="calculerRepartition()">
                 </div>
-
-
-
 
                 <div class="mb-3">
                   <label class="form-label d-flex justify-content-between">
@@ -196,9 +163,6 @@
                   <small class="text-muted">Le montant total est automatiquement réparti entre les destinataires.</small>
                 </div>
 
-
-
-
                 <div class="mb-3 form-check">
                   <input type="checkbox" name="inclure_frais" class="form-check-input" id="inclure_frais_multiple" value="1"
                         onchange="calculerDetailsMultiple()">
@@ -207,9 +171,6 @@
                     <small class="text-muted d-block">(Chaque destinataire reçoit exactement sa part)</small>
                   </label>
                 </div>
-
-
-
 
                 <!-- Détail des montants - Transfert multiple -->
                 <div id="detail-multiple" class="d-none">
@@ -234,15 +195,9 @@
                   </table>
                 </div>
 
-
-
-
                 <div id="operateur-multiple-info" class="alert alert-warning d-none">
                   ⚠️ Tous les destinataires doivent appartenir au même opérateur pour le transfert multiple.
                 </div>
-
-
-
 
                 <button type="submit" class="btn btn-primary w-100">Confirmer les transferts</button>
               </form>
@@ -250,16 +205,9 @@
         </div>
     </div>
 
-
-
-
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script>
   let compteurDestinataires = 1;
-
-
-
-
   function ajouterDestinataire() {
     const container = document.getElementById('destinataires-container');
     const idx = compteurDestinataires++;
@@ -287,9 +235,6 @@
     calculerRepartition();
   }
 
-
-
-
   function supprimerDestinataire(btn) {
     const row = btn.closest('.destinataire-row');
     if (document.querySelectorAll('.destinataire-row').length <= 1) {
@@ -300,16 +245,10 @@
     calculerRepartition();
   }
 
-
-
-
   function calculerRepartition() {
     const montantTotal = parseFloat(document.getElementById('montant_total').value) || 0;
     const rows = document.querySelectorAll('.destinataire-row');
     const nb = rows.length;
-
-
-
 
     if (nb === 0 || montantTotal <= 0) {
       rows.forEach((row, i) => {
@@ -318,14 +257,8 @@
       return;
     }
 
-
-
-
     const parPersonne = Math.floor((montantTotal * 100) / nb) / 100;
     let reste = Math.round((montantTotal - (parPersonne * nb)) * 100) / 100;
-
-
-
 
     rows.forEach((row, i) => {
       let montant = parPersonne;
@@ -335,27 +268,15 @@
       document.getElementById('montant-preview-' + row.dataset.index).textContent = montant.toFixed(2);
     });
 
-
-
-
     // Also refresh the details panel for multiple mode
     calculerDetailsMultiple();
   }
 
-
-
-
   // Appelée lors de la saisie d'un numéro
   let operateursEnregistres = {};
 
-
-
-
   function verifierOperateur(numero, mode) {
     if (numero.length < 3) return;
-
-
-
 
     fetch('/client/verifier-operateur?numero=' + encodeURIComponent(numero))
       .then(r => r.json())
@@ -363,16 +284,10 @@
         if (data.operateur) {
           operateursEnregistres[numero] = data.operateur;
 
-
-
-
           // Vérifier que tous les destinataires ont le même opérateur (mode multiple)
           if (mode === 'multiple') {
             verifierOperateurMultiple();
           }
-
-
-
 
           // Afficher l'opérateur pour le mode simple
           if (mode === 'simple') {
@@ -399,15 +314,9 @@
       .catch(() => {});
   }
 
-
-
-
   function verifierOperateurMultiple() {
     const inputs = document.querySelectorAll('#destinataires-container input[name="numeros[]"]');
     const operateurs = new Set();
-
-
-
 
     inputs.forEach(input => {
       const num = input.value.trim();
@@ -415,9 +324,6 @@
         operateurs.add(operateursEnregistres[num]);
       }
     });
-
-
-
 
     const info = document.getElementById('operateur-multiple-info');
     if (operateurs.size > 1) {
@@ -434,20 +340,12 @@
       info.classList.add('d-none');
     }
   }
-
-
-
-
   /**
    * Formate un nombre en monnaie (ex: 1 500 Ar)
    */
   function formatMoney(amount) {
     return Number(amount).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Ar';
   }
-
-
-
-
   /**
    * Calcule et affiche les détails pour le transfert simple
    */
@@ -455,21 +353,15 @@
     const numero = document.querySelector('#form-simple input[name="numero_destination"]').value.trim();
     const montant = parseFloat(document.querySelector('#form-simple input[name="montant"]').value) || 0;
     const inclureFrais = document.getElementById('inclure_frais_simple').checked;
-
-
     const detailDiv = document.getElementById('detail-simple');
     if (numero.length < 3 || montant <= 0) {
       detailDiv.classList.add('d-none');
       return;
     }
-
-
     const url = '/client/calculer-details?montant=' + encodeURIComponent(montant)
               + '&numero=' + encodeURIComponent(numero)
               + '&inclure_frais=' + (inclureFrais ? '1' : '0');
-
-
-    fetch(url)
+      fetch(url)
       .then(r => r.json())
       .then(data => {
         if (data.error) {
@@ -477,14 +369,11 @@
           return;
         }
 
-
         detailDiv.classList.remove('d-none');
-
 
         document.getElementById('s-montant').textContent = formatMoney(data.montant);
         document.getElementById('s-frais').textContent = data.frais > 0 ? formatMoney(data.frais) : '0 Ar';
         document.getElementById('s-bareme-info').textContent = data.bareme_info || '-';
-
 
         // Commission row (only show for different operators)
         const commissionRow = document.getElementById('s-commission-row');
@@ -496,15 +385,11 @@
           commissionRow.classList.add('d-none');
         }
 
-
         document.getElementById('s-total-debiter').textContent = formatMoney(data.montant_total);
         document.getElementById('s-montant-recu').textContent = formatMoney(data.montant_a_recevoir);
       })
       .catch(() => {});
   }
-
-
-
 
   /**
    * Calcule et affiche les détails pour le transfert multiple
@@ -516,20 +401,16 @@
     const detailDiv = document.getElementById('detail-multiple');
     const detailContent = document.getElementById('detail-multiple-content');
 
-
     if (montantTotal <= 0 || rows.length === 0) {
       detailDiv.classList.add('d-none');
       return;
     }
 
-
     detailDiv.classList.remove('d-none');
-
 
     // Build per-destinataire preview table
     let html = '<table class="table table-sm table-bordered mb-2">';
     html += '<thead><tr><th>Destinataire</th><th class="text-end">Montant</th><th class="text-end">Frais</th><th class="text-end">À recevoir</th></tr></thead><tbody>';
-
 
     rows.forEach(row => {
       const idx = row.dataset.index;
@@ -548,17 +429,14 @@
       </tr>`;
     });
 
-
     html += '</tbody></table>';
     detailContent.innerHTML = html;
-
 
     // Track totals across all fetches
     let totalFrais = 0;
     let totalDebiter = 0;
     let totalRecu = 0;
     let completedFetches = 0;
-
 
     // Now fetch actual data for each destinataire
     rows.forEach(row => {
@@ -568,23 +446,19 @@
       const montantStr = document.getElementById('montant-preview-' + idx);
       const montant = montantStr ? parseFloat(montantStr.textContent) || 0 : 0;
 
-
       if (numero.length < 3 || montant <= 0) {
         completedFetches++;
         return;
       }
 
-
       const url = '/client/calculer-details?montant=' + encodeURIComponent(montant)
                 + '&numero=' + encodeURIComponent(numero)
                 + '&inclure_frais=' + (inclureFrais ? '1' : '0');
-
 
       fetch(url)
         .then(r => r.json())
         .then(data => {
           if (data.error) return;
-
 
           // Update the individual row
           const fraisEl = document.getElementById('m-frais-' + idx);
@@ -592,12 +466,10 @@
           if (fraisEl) fraisEl.textContent = formatMoney(data.frais);
           if (recuEl) recuEl.textContent = formatMoney(data.montant_a_recevoir);
 
-
           totalFrais += data.frais;
           totalDebiter += data.montant_total;
           totalRecu += data.montant_a_recevoir;
           completedFetches++;
-
 
           // Update summary when all fetches done
           if (completedFetches === rows.length) {
