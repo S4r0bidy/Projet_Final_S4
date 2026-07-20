@@ -1,7 +1,11 @@
 <?php
 
 
+
+
 namespace App\Controllers\Client;
+
+
 
 
 use App\Controllers\BaseController;
@@ -14,12 +18,16 @@ use App\Models\TypeOperationModel;
 use RuntimeException;
 
 
+
+
 class TransfertController extends BaseController
 {
     public function index()
     {
         return view('client/transfert/index');
     }
+
+
 
 
     /**
@@ -32,12 +40,16 @@ class TransfertController extends BaseController
         $inclureFrais = (bool) $this->request->getPost('inclure_frais');
 
 
+
+
         if ($montant <= 0) {
             return redirect()->back()->with('error', 'Montant invalide.');
         }
         if ($numeroDestination === '') {
             return redirect()->back()->with('error', 'Numéro destination requis.');
         }
+
+
 
 
         $expediteurId = (int) session()->get('client_id');
@@ -48,10 +60,14 @@ class TransfertController extends BaseController
         $prefixeModel = new PrefixeModel();
 
 
+
+
         $typeTransfert = $typeModel->getByCode(TypeOperationModel::TRANSFERT);
         if (! $typeTransfert) {
             return redirect()->back()->with('error', 'Type TRANSFERT introuvable.');
         }
+
+
 
 
         // Vérifier préfixe destination
@@ -63,12 +79,18 @@ class TransfertController extends BaseController
         }
 
 
+
+
         $destId = (int) $destinationCompte['id'];
+
+
 
 
         if ($destId === $expediteurId) {
             return redirect()->back()->with('error', 'Impossible de transférer vers votre propre compte.');
         }
+
+
 
 
         // Vérifier si l'opérateur destinataire est le même que l'expéditeur
@@ -77,8 +99,12 @@ class TransfertController extends BaseController
         $statutDestinataire = $prefixeModel->getOperateurByNumero($numeroDestination);
 
 
+
+
         $db = $compteModel->db;
         $db->transStart();
+
+
 
 
         try {
@@ -88,7 +114,11 @@ class TransfertController extends BaseController
             }
 
 
+
+
             $frais = (float)$bareme['frais'];
+
+
 
 
             // Pas de frais de retrait si l'opérateur destinataire est différent
@@ -96,9 +126,13 @@ class TransfertController extends BaseController
                 && $statutExpediteur['id'] === $statutDestinataire['id']);
 
 
+
+
             if (! $estMemeOperateur) {
                 $frais = 0;
             }
+
+
 
 
             // Commission supplémentaire pour les transferts vers d'autres opérateurs
@@ -107,6 +141,8 @@ class TransfertController extends BaseController
             if (! $estMemeOperateur && $statutDestinataire) {
                 $commission = $commissionModel->calculerCommission((int)$statutDestinataire['id'], $montant);
             }
+
+
 
 
             if ($inclureFrais) {
@@ -121,11 +157,17 @@ class TransfertController extends BaseController
             }
 
 
+
+
             $compteModel->debiter($expediteurId, $montantADebiter);
             $compteModel->crediter($destId, $montantARecevoir);
 
 
+
+
             $reference = $operationModel->genererReference();
+
+
 
 
             $operationModel->insert([
@@ -141,6 +183,8 @@ class TransfertController extends BaseController
             ]);
 
 
+
+
             $db->transComplete();
             return redirect()->to('/client/dashboard')->with('message', 'Transfert effectué.');
         } catch (\Throwable $e) {
@@ -148,6 +192,8 @@ class TransfertController extends BaseController
             return redirect()->back()->with('error', 'Échec transfert : ' . $e->getMessage());
         }
     }
+
+
 
 
     /**
@@ -188,6 +234,124 @@ class TransfertController extends BaseController
 
 
     /**
+     * AJAX : Calcule et retourne les détails d'un transfert (frais, commission, totaux)
+     * GET /client/calculer-details?montant=5000&numero=0331234567&inclure_frais=1
+     */
+    public function calculerDetails()
+    {
+        $montant = (float) $this->request->getGet('montant');
+        $numero = trim((string) $this->request->getGet('numero'));
+        $inclureFrais = (bool) $this->request->getGet('inclure_frais');
+
+
+        if ($montant <= 0 || $numero === '') {
+            return $this->response->setJSON(['error' => 'Paramètres invalides.']);
+        }
+
+
+        $baremeModel = new BaremeFraisModel();
+        $prefixeModel = new PrefixeModel();
+        $compteModel = new CompteClientModel();
+        $commissionModel = new CommissionOperateurModel();
+        $typeModel = new TypeOperationModel();
+
+
+        $typeTransfert = $typeModel->getByCode(TypeOperationModel::TRANSFERT);
+        if (! $typeTransfert) {
+            return $this->response->setJSON(['error' => 'Type TRANSFERT introuvable.']);
+        }
+
+
+        // Vérifier opérateur destinataire
+        $operateurDest = $prefixeModel->getOperateurByNumero($numero);
+        if (! $operateurDest) {
+            return $this->response->setJSON(['error' => 'Opérateur non reconnu pour ce numéro.']);
+        }
+
+
+        // Vérifier si même opérateur
+        $expediteurId = (int) session()->get('client_id');
+        $expediteur = $compteModel->find($expediteurId);
+        $memeOperateur = false;
+        if ($expediteur) {
+            $operateurExp = $prefixeModel->getOperateurByNumero($expediteur['numero_telephone']);
+            $memeOperateur = ($operateurExp && $operateurExp['id'] === $operateurDest['id']);
+        }
+
+
+        // Chercher le barème de frais
+        $bareme = $baremeModel->getBaremePourMontant((int)$typeTransfert['id'], $montant);
+        $frais = 0;
+        $baremeInfo = 'Aucun';
+        if ($bareme) {
+            $frais = (float)$bareme['frais'];
+            // Construire description du barème
+            $min = number_format((float)$bareme['montant_min'], 0, ',', ' ');
+            $max = $bareme['montant_max'] !== null
+                ? number_format((float)$bareme['montant_max'], 0, ',', ' ')
+                : '∞';
+            $baremeInfo = $min . ' - ' . $max . ' Ar → ' . number_format($frais, 0, ',', ' ') . ' Ar';
+        }
+
+
+        // Si même opérateur, pas de frais de retrait sur transfert ?
+        // Actually from the controller logic: frais are ALWAYS applied based on bareme
+        // Only commission is extra for different operators
+        // Wait, let me re-check the controller logic...
+
+
+        // From the store() method:
+        // $frais = (float)$bareme['frais'];
+        // if (! $estMemeOperateur) { $frais = 0; }
+        // So frais is only applied for same operator transfers
+        if (! $memeOperateur) {
+            $frais = 0;
+        }
+
+
+        // Commission pour opérateur différent
+        $commission = 0;
+        $commissionPourcentage = 0;
+        if (! $memeOperateur) {
+            $commissionData = $commissionModel->getCommissionForOperator((int)$operateurDest['id']);
+            if ($commissionData) {
+                $commissionPourcentage = (float)$commissionData['pourcentage'];
+                $commission = $commissionModel->calculerCommission((int)$operateurDest['id'], $montant);
+            }
+        }
+
+
+        // Calcul des totaux selon inclure_frais
+        if ($inclureFrais) {
+            $montantADebiter = $montant + $frais + $commission;
+            $montantARecevoir = $montant;
+        } else {
+            $montantADebiter = $montant;
+            $montantARecevoir = $montant - $frais - $commission;
+            if ($montantARecevoir < 0) {
+                $montantARecevoir = 0;
+            }
+        }
+
+
+        return $this->response->setJSON([
+            'montant' => $montant,
+            'frais' => $frais,
+            'commission' => $commission,
+            'commission_pourcentage' => $commissionPourcentage,
+            'montant_total' => round($montantADebiter, 2),
+            'montant_a_recevoir' => round($montantARecevoir, 2),
+            'meme_operateur' => $memeOperateur,
+            'operateur_nom' => $operateurDest['nom'],
+            'inclure_frais' => $inclureFrais,
+            'bareme_info' => $baremeInfo,
+        ]);
+    }
+
+
+
+
+    /**
      * Transfert multiple vers plusieurs numéros du même opérateur
      */
     public function storeMultiple()
@@ -197,10 +361,14 @@ class TransfertController extends BaseController
         $inclureFrais = (bool) $this->request->getPost('inclure_frais');
 
 
+
+
         $numeros = array_filter($numeros, function ($n) {
             return trim((string) $n) !== '';
         });
         $numeros = array_values($numeros);
+
+
 
 
         if ($montantTotal <= 0) {
@@ -211,6 +379,8 @@ class TransfertController extends BaseController
         }
 
 
+
+
         $expediteurId = (int) session()->get('client_id');
         $compteModel = new CompteClientModel();
         $operationModel = new OperationModel();
@@ -219,10 +389,14 @@ class TransfertController extends BaseController
         $prefixeModel = new PrefixeModel();
 
 
+
+
         $typeTransfert = $typeModel->getByCode(TypeOperationModel::TRANSFERT);
         if (! $typeTransfert) {
             return redirect()->back()->with('error', 'Type TRANSFERT introuvable.');
         }
+
+
 
 
         // Vérifier que tous les numéros appartiennent au même opérateur
@@ -240,6 +414,8 @@ class TransfertController extends BaseController
         }
 
 
+
+
         // Vérifier que l'opérateur des destinataires est le même que l'expéditeur
         $expediteurCompte = $compteModel->find($expediteurId);
         $operateurExpediteur = $prefixeModel->getOperateurByNumero($expediteurCompte['numero_telephone']);
@@ -248,10 +424,14 @@ class TransfertController extends BaseController
         }
 
 
+
+
         // Répartition du montant
         $nbDestinataires = count($numeros);
         $montantParPersonne = floor(($montantTotal * 100) / $nbDestinataires) / 100;
         $reste = round($montantTotal - ($montantParPersonne * $nbDestinataires), 2);
+
+
 
 
         $montants = [];
@@ -261,12 +441,18 @@ class TransfertController extends BaseController
         $montants[0] = round($montants[0] + $reste, 2);
 
 
+
+
         $db = $compteModel->db;
         $db->transStart();
 
 
+
+
         try {
             $montantTotalADebiter = 0;
+
+
 
 
             foreach ($numeros as $i => $num) {
@@ -274,9 +460,13 @@ class TransfertController extends BaseController
                 $montant = $montants[$i];
 
 
+
+
                 if ($montant <= 0) {
                     throw new RuntimeException('Montant réparti invalide pour un destinataire.');
                 }
+
+
 
 
                 $prefixeModel->getPrefixeActif($num);
@@ -284,9 +474,13 @@ class TransfertController extends BaseController
                 $destId = (int) $destinationCompte['id'];
 
 
+
+
                 if ($destId === $expediteurId) {
                     throw new RuntimeException('Impossible de transférer vers votre propre compte.');
                 }
+
+
 
 
                 $bareme = $baremeModel->getBaremePourMontant((int)$typeTransfert['id'], $montant);
@@ -295,7 +489,11 @@ class TransfertController extends BaseController
                 }
 
 
+
+
                 $frais = (float)$bareme['frais'];
+
+
 
 
                 if ($inclureFrais) {
@@ -310,10 +508,16 @@ class TransfertController extends BaseController
                 }
 
 
+
+
                 $montantTotalADebiter += $montantADebiter;
 
 
+
+
                 $compteModel->crediter($destId, $montantARecevoir);
+
+
 
 
                 $reference = $operationModel->genererReference();
@@ -331,7 +535,11 @@ class TransfertController extends BaseController
             }
 
 
+
+
             $compteModel->debiter($expediteurId, $montantTotalADebiter);
+
+
 
 
             $db->transComplete();
