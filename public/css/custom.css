@@ -1,0 +1,36 @@
+/* ============================================================
+   CUSTOM.CSS - Styles complémentaires à Bootstrap 5
+   ============================================================ */
+
+/* Pour garder un espacement cohérent avec l'ancien layout */
+body {
+    background: #f6f6f6;
+    min-height: 100vh;
+}
+
+.wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Badge custom - pour garder le style existant */
+.badge-custom {
+    font-size: 0.85rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Légère personnalisation des cards */
+.card {
+    border: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* Lien de retour style muted */
+.back-link {
+    color: #6c757d;
+    text-decoration: none;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+

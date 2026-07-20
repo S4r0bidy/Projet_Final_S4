@@ -121,5 +121,3 @@
 - [X] Génération d'une référence unique par opération (ex : `OP-20260720-000123`)
 - [X] Gestion des erreurs métier : solde insuffisant, préfixe invalide, montant hors barème, compte destinataire introuvable
 - [X] Journalisation systématique de chaque opération dans la table `operations`
-
-
