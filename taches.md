@@ -1,28 +1,96 @@
 # Simulateur d'opérateur Mobile Money
 
-## Phase 0 — Mise en place du projet
+# TODO - Projet 
 
-- [X] Configuration CodeIgniter 4
-- [X] Configurer la connexion SQLite dans `.env` (`database.default.DBDriver = SQLite3`, `database.default.database = database.db`)
-- [X] Créer la base à partir de `base.sql`
-- [X] Mettre en place la structure de dossiers : `Controllers/Admin`, `Controllers/Client`, `Models`, `Views/admin`, `Views/client`
-- [X] Définir les routes de base (`app/Config/Routes.php`) : groupe `admin` et groupe `client`
+## Phase 1 — Conception
+### Base de données
+- [X] Créer `prefixe`
+- [X] Créer `comptes_clients`
+- [X] Créer `type_operation`
+- [X] Créer `baremes_frais`
+- [X] Créer `types_operation`
 
-## Phase 1 — Authentification
+## Phase 2 — Structure du projet
+### Configuration
+- [X] `config/Config.php`
+
+### Modèles
+- [X] `model/CompteClientModel.php`
+- [X] `model/OperateurTelecomModel.php`
+- [X] `model/PrefixeModel.php`
+- [X] `model/TypeOperationModel.php`
+- [X] `model/BaremeFraisModel.php`
+- [X] `model/OperationModel.php`
+- [X] `model/AdministrateurModel.php`
+
+### Contrôleurs
+- [X] `controller/client/AuthClientController.php`
+- [X] `controller/client/DashboardController.php`
+- [X] `controller/client/DepotController.php`
+- [X] `controller/client/HistoriqueController.php`
+- [X] `controller/client/RetraitController.php`
+- [X] `controller/client/TransfertController.php`
+
+- [X] `controller/admin/AuthAdminController.php`
+- [X] `controller/admin/BaremeFraisController.php`
+- [X] `controller/admin/CompteClientController.php`
+- [X] `controller/admin/DashboardController.php`
+- [X] `controller/admin/GainController.php`
+- [X] `controller/admin/OperateurController.php`
+- [X] `controller/admin/PrefixeController.php`
+
+### Vues
+- [X] `views/dashboard.php`
+
+- [X] `views/client/auth/login.php`
+- [X] `views/client/depot/index.php`
+- [X] `views/client/historique/index.php`
+- [X] `views/client/retrait/index.php`
+- [X] `views/client/transfert/index.php`
+
+- [X] `views/admin/auth/login.php`
+- [X] `views/admin/baremes/edit.php`
+- [X] `views/admin/baremes/index.php`
+- [X] `views/admin/comptes/index.php`
+- [X] `views/admin/comptes/show.php`
+- [X] `views/admin/dashboard/index.php`
+- [X] `views/admin/gains/index.php`
+- [X] `views/admin/operateurs/index.php`
+- [X] `views/admin/prefixes/index.php`
+- [X] `views/admin/prefixes/edit.php`
+
+## Phase 3 — Fonctionnalités Opérateur
+- [X] Gestion des préfixes (CRUD)
+- [X] Gestion des types d'opérations
+- [X] Gestion des barèmes de frais
+- [X] Consultation des comptes clients
+
+## Phase 4 — Fonctionnalités Client
+- [X] Connexion automatique par numéro
+- [X] Création automatique du compte
+- [X] Consulter le solde
+- [X] Dépôt
+- [X] Retrait
+- [X] Transfert
+- [X] Historique
+
+## Taches
+
+## Authentification
 
 ### Côté opérateur (admin)
 - [X] Table + Model `Administrateurs`
-- [ ] Formulaire de connexion (username / mot de passe hashé)
-- [ ] Déconnexion
+- [X] Formulaire de connexion (username / mot de passe hashé)
+- [X] Déconnexion
 
 ### Côté client
-- [ ] Formulaire de connexion par numéro de téléphone uniquement (pas d'inscription)
-- [ ] Vérifier que le préfixe du numéro saisi correspond à un préfixe actif (table `prefixes_operateur`)
-- [ ] Si le numéro n'existe pas encore en base : création automatique du compte (solde = 0)
-- [ ] Session client (numéro de téléphone / id compte)
-- [ ] Déconnexion
+- [X] Formulaire de connexion par numéro de téléphone uniquement (pas d'inscription)
+- [X] Vérifier que le préfixe du numéro saisi correspond à un préfixe actif (table `prefixes_operateur`)
+- [X] Si le numéro n'existe pas encore en base : création automatique du compte (solde = 0)
+- [X] Session client (numéro de téléphone / id compte)
+- [X] Déconnexion
 
-## Phase 2 — Module Opérateur
+## Module Opérateur
 
 - [X] CRUD **Préfixes valables** (ex : 033, 037) — activer/désactiver un préfixe
 - [X] CRUD **Types d'opération** (Dépôt, Retrait, Transfert)
@@ -33,7 +101,7 @@
 - [X] Écran **Situation des comptes clients** : liste des comptes avec solde, date de création, nombre d'opérations
 - [X] Tableau de bord opérateur (résumé : nb clients, solde total, gains du jour)
 
-## Phase 3 — Module Client
+## Module Client
 
 - [X] Écran **Voir le solde**
 - [X] **Dépôt** (crédit automatique et immédiat du compte, sans frais — à confirmer)
@@ -47,7 +115,7 @@
   - [X] Débiter l'expéditeur (montant + frais), créditer le destinataire (montant)
 - [X] **Historique des opérations** du compte connecté (dépôts, retraits, transferts envoyés/reçus)
 
-## Phase 4 — Logique métier commune
+## Logique métier commune
 
 - [X] Service/Helper `CalculFrais` : trouver la tranche applicable pour un type d'opération + montant, retourner le frais
 - [X] Génération d'une référence unique par opération (ex : `OP-20260720-000123`)
