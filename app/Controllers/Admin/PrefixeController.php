@@ -62,5 +62,46 @@ class PrefixeController extends BaseController
 
         return redirect()->to('/admin/prefixes')->with('message', 'Préfixe mis à jour.');
     }
+
+    public function edit(int $id)
+    {
+        $prefixe = $this->prefixeModel->find($id);
+        if (! $prefixe) {
+            return redirect()->to('/admin/prefixes')->with('error', 'Préfixe introuvable.');
+        }
+
+        $operateurs = $this->operateurModel->findAll();
+
+        return view('admin/prefixes/edit', [
+            'prefixe' => $prefixe,
+            'operateurs' => $operateurs,
+        ]);
+    }
+
+    public function update(int $id)
+    {
+        $prefixe = $this->prefixeModel->find($id);
+        if (! $prefixe) {
+            return redirect()->to('/admin/prefixes')->with('error', 'Préfixe introuvable.');
+        }
+
+        $newPrefixe = trim((string) $this->request->getPost('prefixe'));
+        $operateurId = (int) $this->request->getPost('operateur_telecom_id');
+
+        if ($newPrefixe === '' || $operateurId <= 0) {
+            return redirect()->back()->with('error', 'Préfixe et opérateur requis.');
+        }
+
+        try {
+            $this->prefixeModel->update($id, [
+                'prefixe' => $newPrefixe,
+                'operateur_telecom_id' => $operateurId,
+            ]);
+
+            return redirect()->to('/admin/prefixes')->with('message', 'Préfixe modifié avec succès.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', 'Impossible de modifier ce préfixe (existe peut-être déjà).');
+        }
+    }
 }
 

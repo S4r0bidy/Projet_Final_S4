@@ -44,6 +44,7 @@
 
 /* ---------- Formulaires de transaction (dépôt, retrait, transfert) ---------- */
 .transaction-card {
+    margin-top: 14px;
     max-width: 520px;
     margin: 0 auto;
 }

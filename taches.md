@@ -1,57 +1,330 @@
 # Simulateur d'opérateur Mobile Money
 
-## Phase 0 — Mise en place du projet
+# TODO - Projet V1
 
-- [X] Configuration CodeIgniter 4
-- [X] Configurer la connexion SQLite dans `.env` (`database.default.DBDriver = SQLite3`, `database.default.database = database.db`)
-- [X] Créer la base à partir de `base.sql`
-- [X] Mettre en place la structure de dossiers : `Controllers/Admin`, `Controllers/Client`, `Models`, `Views/admin`, `Views/client`
-- [X] Définir les routes de base (`app/Config/Routes.php`) : groupe `admin` et groupe `client`
+## Phase 1 — Conception
+### Base de données
+- [X] Créer `prefixe`
+- [X] Créer `comptes_clients`
+- [X] Créer `type_operation`
+- [X] Créer `baremes_frais`
+- [X] Créer `types_operation`
 
-## Phase 1 — Authentification
+## Phase 2 — Structure du projet
+### Configuration
+- [X] `config/Config.php`
+
+### Modèles
+- [X] `model/CompteClientModel.php`
+- [X] `model/OperateurTelecomModel.php`
+- [X] `model/PrefixeModel.php`
+- [X] `model/TypeOperationModel.php`
+- [X] `model/BaremeFraisModel.php`
+- [X] `model/OperationModel.php`
+- [X] `model/AdministrateurModel.php`
+
+### Contrôleurs
+- [X] `controller/client/AuthClientController.php`
+- [X] `controller/client/DashboardController.php`
+- [X] `controller/client/DepotController.php`
+- [X] `controller/client/HistoriqueController.php`
+- [X] `controller/client/RetraitController.php`
+- [X] `controller/client/TransfertController.php`
+
+- [X] `controller/admin/AuthAdminController.php`
+- [X] `controller/admin/BaremeFraisController.php`
+- [X] `controller/admin/CompteClientController.php`
+- [X] `controller/admin/DashboardController.php`
+- [X] `controller/admin/GainController.php`
+- [X] `controller/admin/OperateurController.php`
+- [X] `controller/admin/PrefixeController.php`
+
+### Vues
+- [X] `views/dashboard.php`
+
+- [X] `views/client/auth/login.php`
+- [X] `views/client/depot/index.php`
+- [X] `views/client/historique/index.php`
+- [X] `views/client/retrait/index.php`
+- [X] `views/client/transfert/index.php`
+
+- [X] `views/admin/auth/login.php`
+- [X] `views/admin/baremes/edit.php`
+- [X] `views/admin/baremes/index.php`
+- [X] `views/admin/comptes/index.php`
+- [X] `views/admin/comptes/show.php`
+- [X] `views/admin/dashboard/index.php`
+- [X] `views/admin/gains/index.php`
+- [X] `views/admin/operateurs/index.php`
+- [X] `views/admin/prefixes/index.php`
+- [X] `views/admin/prefixes/edit.php`
+
+## Phase 3 — Fonctionnalités Opérateur
+- [X] Gestion des préfixes (CRUD)
+- [X] Gestion des types d'opérations
+- [X] Gestion des barèmes de frais
+- [X] Consultation des comptes clients
+
+## Phase 4 — Fonctionnalités Client
+- [X] Connexion automatique par numéro
+- [X] Création automatique du compte
+- [X] Consulter le solde
+- [X] Dépôt
+- [X] Retrait
+- [X] Transfert
+- [X] Historique
+
+## Taches
+
+## Authentification
 
 ### Côté opérateur (admin)
 - [X] Table + Model `Administrateurs`
-- [ ] Formulaire de connexion (username / mot de passe hashé)
-- [ ] Déconnexion
+- [X] Formulaire de connexion (username / mot de passe hashé)
+- [X] Déconnexion
 
 ### Côté client
-- [ ] Formulaire de connexion par numéro de téléphone uniquement (pas d'inscription)
-- [ ] Vérifier que le préfixe du numéro saisi correspond à un préfixe actif (table `prefixes_operateur`)
-- [ ] Si le numéro n'existe pas encore en base : création automatique du compte (solde = 0)
-- [ ] Session client (numéro de téléphone / id compte)
-- [ ] Déconnexion
+- [X] Formulaire de connexion par numéro de téléphone uniquement (pas d'inscription)
+- [X] Vérifier que le préfixe du numéro saisi correspond à un préfixe actif (table `prefixes_operateur`)
+- [X] Si le numéro n'existe pas encore en base : création automatique du compte (solde = 0)
+- [X] Session client (numéro de téléphone / id compte)
+- [X] Déconnexion
 
-## Phase 2 — Module Opérateur
+## Module Opérateur
 
-- [ ] CRUD **Préfixes valables** (ex : 033, 037) — activer/désactiver un préfixe
-- [ ] CRUD **Types d'opération** (Dépôt, Retrait, Transfert)
-- [ ] CRUD **Barèmes de frais** par tranche de montant, modifiable, rattaché à un type d'opération
-  - [ ] Formulaire d'ajout d'une tranche (montant min, montant max, frais)
-  - [ ] Validation : pas de chevauchement entre tranches d'un même type d'opération
-- [ ] Écran **Situation des gains** : total des frais perçus (retrait + transfert), filtrable par période / type d'opération
-- [ ] Écran **Situation des comptes clients** : liste des comptes avec solde, date de création, nombre d'opérations
-- [ ] Tableau de bord opérateur (résumé : nb clients, solde total, gains du jour)
+- [X] CRUD **Préfixes valables** (ex : 033, 037) — activer/désactiver un préfixe
+- [X] CRUD **Types d'opération** (Dépôt, Retrait, Transfert)
+- [X] CRUD **Barèmes de frais** par tranche de montant, modifiable, rattaché à un type d'opération
+  - [X] Formulaire d'ajout d'une tranche (montant min, montant max, frais)
+  - [X] Validation : pas de chevauchement entre tranches d'un même type d'opération
+- [X] Écran **Situation des gains** : total des frais perçus (retrait + transfert), filtrable par période / type d'opération
+- [X] Écran **Situation des comptes clients** : liste des comptes avec solde, date de création, nombre d'opérations
+- [X] Tableau de bord opérateur (résumé : nb clients, solde total, gains du jour)
 
-## Phase 3 — Module Client
+## Module Client
 
-- [ ] Écran **Voir le solde**
-- [ ] **Dépôt** (crédit automatique et immédiat du compte, sans frais — à confirmer)
-- [ ] **Retrait**
-  - [ ] Vérifier le solde suffisant (montant + frais)
-  - [ ] Calculer les frais selon le barème de la tranche correspondante
-  - [ ] Débiter automatiquement
-- [ ] **Transfert**
-  - [ ] Vérifier que le compte destinataire existe (ou le créer si numéro valide et inconnu)
-  - [ ] Calculer les frais selon le barème "transfert"
-  - [ ] Débiter l'expéditeur (montant + frais), créditer le destinataire (montant)
-- [ ] **Historique des opérations** du compte connecté (dépôts, retraits, transferts envoyés/reçus)
+- [X] Écran **Voir le solde**
+- [X] **Dépôt** (crédit automatique et immédiat du compte, sans frais — à confirmer)
+- [X] **Retrait**
+  - [X] Vérifier le solde suffisant (montant + frais)
+  - [X] Calculer les frais selon le barème de la tranche correspondante
+  - [X] Débiter automatiquement
+- [X] **Transfert**
+  - [X] Vérifier que le compte destinataire existe (ou le créer si numéro valide et inconnu)
+  - [X] Calculer les frais selon le barème "transfert"
+  - [X] Débiter l'expéditeur (montant + frais), créditer le destinataire (montant)
+- [X] **Historique des opérations** du compte connecté (dépôts, retraits, transferts envoyés/reçus)
 
-## Phase 4 — Logique métier commune
+## Logique métier commune
 
-- [ ] Service/Helper `CalculFrais` : trouver la tranche applicable pour un type d'opération + montant, retourner le frais
-- [ ] Génération d'une référence unique par opération (ex : `OP-20260720-000123`)
-- [ ] Gestion des erreurs métier : solde insuffisant, préfixe invalide, montant hors barème, compte destinataire introuvable
-- [ ] Journalisation systématique de chaque opération dans la table `operations`
+- [X] Service/Helper `CalculFrais` : trouver la tranche applicable pour un type d'opération + montant, retourner le frais
+- [X] Génération d'une référence unique par opération (ex : `OP-20260720-000123`)
+- [X] Gestion des erreurs métier : solde insuffisant, préfixe invalide, montant hors barème, compte destinataire introuvable
+- [X] Journalisation systématique de chaque opération dans la table `operations`
 
 
+## TO DO V2
+
+# Phase 1-1 — Base de données
+
+## Commission des transferts inter-opérateurs
+
+- [ ] Créer une table `commission_operateur`
+
+Cette table doit contenir :
+
+- [ ] opérateur destination
+- [ ] pourcentage supplémentaire
+- [ ] date de création
+- [ ] statut actif
+
+## Situation des gains
+- [ ] Ajouter l'information :
+    - même opérateur
+    - autre opérateur
+
+## Situation des transferts
+
+Créer une nouvelle vue ou table permettant de calculer :
+
+- [ ] Total à envoyer vers Orange Money
+- [ ] Total à envoyer vers Airtel Money
+- [ ] Total à envoyer vers Telma
+- [ ] Total à envoyer vers les autres opérateurs
+
+# Phase 1-2 — Modèles
+
+## Créer ou modifier les modèles
+
+- [ ] Modifier `PrefixeModel.java`
+- [ ] Créer `OperateurModel.java`
+- [ ] Créer `CommissionOperateurModel.java`
+- [ ] Modifier `OperationModel.java`
+
+## Gestion des opérateurs
+- [ ] CRUD opérateur:
+  - [ ] Ajouter un opérateur
+  - [ ] Modifier un opérateur
+  - [ ] Supprimer
+
+## Gestion des commissions
+- [ ]CRUD commissiom:
+  - [ ] Ajouter une commission
+  - [ ] Modifier une commission
+  - [ ] Supprimer
+  - [ ] Calcul automatique des commissions
+
+# Phase 1-3 — Interface Opérateur
+
+## Gestion des opérateurs
+
+Créer
+
+- [ ] `operateur.php`
+
+Fonctionnalités
+
+- [ ] Ajouter un opérateur
+- [ ] Modifier
+- [ ] Supprimer
+- [ ] Rechercher
+
+## Gestion des commissions
+
+Créer
+
+- [ ] `commission.php`
+
+Fonctionnalités
+
+- [ ] Ajouter un pourcentage
+- [ ] Modifier
+- [ ] Désactiver
+
+## Situation des gains
+
+Modifier
+
+- [ ] `gains.php`
+
+Afficher séparément
+
+- [ ] Gains sur les retraits
+- [ ] Gains des transferts internes
+- [ ] Gains des transferts vers les autres opérateurs
+
+
+## Situation des montants à envoyer
+
+Créer
+
+- [ ] `SituationOperateur.php`
+
+Afficher
+
+- [ ] Nom opérateur
+- [ ] Nombre de transferts
+- [ ] Montant total
+- [ ] Date
+
+# Phase 1-4 — Interface Client
+
+## Option "Inclure les frais"
+
+Modifier
+
+- [ ] `transfert/index.php`
+
+Ajouter
+
+- [ ] Case à cocher
+
+```
+☐ Inclure les frais de retrait
+```
+
+Traitement (JavaScript)
+
+- [ ] Si coché
+    - le destinataire reçoit exactement le montant demandé
+    - l'expéditeur paie également les frais
+
+- [ ] Si non coché
+    - fonctionnement classique
+
+## Suppression des frais de retrait
+
+Modifier
+
+- [ ] Calcul des frais
+
+Règle
+
+- [ ] Aucun frais de retrait pour les autres opérateurs
+
+
+## Transfert multiple
+
+Modifier
+- Envoi multiple vers plusieurs numéros ( divisé le montant pour chaque numéro) même opérateur uniquement
+
+- [ ] Bouton "Ajouter un destinataire"
+
+## Répartition automatique
+
+Fonctions
+
+- [ ] Vérifier le montant total
+- [ ] Diviser automatiquement le montant
+- [ ] Arrondir correctement
+- [ ] Effectuer chaque transfert
+
+
+## Vérification des opérateurs
+
+Avant le transfert
+
+- [ ] Vérifier que tous les numéros appartiennent au même opérateur
+
+Si non
+
+- [ ] Refuser le transfert
+
+Message
+
+```
+Tous les destinataires doivent appartenir au même opérateur.
+```
+
+---
+
+# Phase 1-5 — Historique
+
+Ajouter
+
+- [ ] Opérateur destinataire
+- [ ] Type de transfert
+- [ ] Commission supplémentaire
+- [ ] Frais inclus (Oui / Non)
+
+# Phase 1-6 — Statistiques
+
+Créer
+
+- [ ] Statistiques des transferts internes
+
+Créer
+
+- [ ] Statistiques des transferts externes
+
+Créer
+
+- [ ] Statistiques par opérateur
+
+Créer
+
+- [ ] Montants envoyés par opérateur
+
+Créer
+
+- [ ] Total des commissions supplémentaires

@@ -4,78 +4,91 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Situation des comptes</title>
-  <link rel="stylesheet" href="/css/layout.css">
-  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
-<nav>
-  <a href="/admin/dashboard">Accueil</a>
-  <a href="/admin/prefixes">Préfixes</a>
-  <a href="/admin/operateurs">Opérateurs</a>
-  <a href="/admin/baremes">Barèmes</a>
-  <a href="/admin/comptes">Comptes</a>
-  <a href="/admin/gains">Gains</a>
-  <a href="/admin/logout" style="float:right; margin-right:0;">Déconnexion</a>
-</nav>
+<div class="wrap p-3">
+  <nav class="navbar navbar-expand navbar-light bg-light rounded mb-3 shadow-sm">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Admin</span>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/prefixes">Préfixes</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/operateurs">Opérateurs</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/baremes">Barèmes</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/comptes">Comptes</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/gains">Gains</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-danger" href="/admin/logout">Déconnexion</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<h1>Situation des comptes clients</h1>
+  <h1 class="mb-4">Situation des comptes clients</h1>
 
-<?php if (session('message')): ?>
-  <div class="message"><?= esc(session('message')) ?></div>
-<?php endif; ?>
-<?php if (session('error')): ?>
-  <div class="error"><?= esc(session('error')) ?></div>
-<?php endif; ?>
-
-<div class="card">
-  <?php if (empty($comptes)): ?>
-    <p>Aucun compte client pour le moment.</p>
-  <?php else: ?>
-    <table>
-      <thead>
-        <tr>
-          <th>Numéro</th>
-          <th>Opérateur</th>
-          <th>Solde</th>
-          <th>Statut</th>
-          <th>Nb Opérations</th>
-          <th>Date création</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php foreach ($comptes as $c): ?>
-        <tr>
-          <td>
-            <a href="/admin/comptes/<?= (int)$c['id'] ?>"><?= esc($c['numero_telephone']) ?></a>
-          </td>
-          <td><?= esc($c['operateur_telecom'] ?? '-') ?></td>
-          <td><?= number_format((float)($c['solde'] ?? 0), 2, ',', ' ') ?> Ar</td>
-          <td>
-            <?php if (($c['statut'] ?? '') === 'ACTIF'): ?>
-              <span class="badge badge-actif">Actif</span>
-            <?php else: ?>
-              <span class="badge badge-bloque">Bloqué</span>
-            <?php endif; ?>
-          </td>
-          <td><?= (int)($c['nb_operations'] ?? 0) ?></td>
-          <td><?= esc($c['date_creation'] ?? '') ?></td>
-          <td>
-            <?php if (($c['statut'] ?? '') === 'ACTIF'): ?>
-              <form method="post" action="/admin/comptes/<?= (int)$c['id'] ?>/bloquer" style="display:inline;">
-                <button class="btn btn-bloquer" type="submit">Bloquer</button>
-              </form>
-            <?php else: ?>
-              <form method="post" action="/admin/comptes/<?= (int)$c['id'] ?>/debloquer" style="display:inline;">
-                <button class="btn btn-debloquer" type="submit">Débloquer</button>
-              </form>
-            <?php endif; ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-      </tbody>
-    </table>
+  <?php if (session('message')): ?>
+    <div class="alert alert-success"><?= esc(session('message')) ?></div>
   <?php endif; ?>
+  <?php if (session('error')): ?>
+    <div class="alert alert-danger"><?= esc(session('error')) ?></div>
+  <?php endif; ?>
+
+  <div class="card shadow-sm p-3">
+    <?php if (empty($comptes)): ?>
+      <p class="text-muted">Aucun compte client pour le moment.</p>
+    <?php else: ?>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Numéro</th>
+              <th>Opérateur</th>
+              <th>Solde</th>
+              <th>Statut</th>
+              <th>Nb Opérations</th>
+              <th>Date création</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($comptes as $c): ?>
+            <tr>
+              <td>
+                <a href="/admin/comptes/<?= (int)$c['id'] ?>"><?= esc($c['numero_telephone']) ?></a>
+              </td>
+              <td><?= esc($c['operateur_telecom'] ?? '-') ?></td>
+              <td><?= number_format((float)($c['solde'] ?? 0), 2, ',', ' ') ?> Ar</td>
+              <td>
+                <?php if (($c['statut'] ?? '') === 'ACTIF'): ?>
+                  <span class="badge bg-success">Actif</span>
+                <?php else: ?>
+                  <span class="badge bg-danger">Bloqué</span>
+                <?php endif; ?>
+              </td>
+              <td><?= (int)($c['nb_operations'] ?? 0) ?></td>
+              <td><?= esc($c['date_creation'] ?? '') ?></td>
+              <td>
+                <?php if (($c['statut'] ?? '') === 'ACTIF'): ?>
+                  <form method="post" action="/admin/comptes/<?= (int)$c['id'] ?>/bloquer" style="display:inline;">
+                    <button class="btn btn-danger btn-sm" type="submit">Bloquer</button>
+                  </form>
+                <?php else: ?>
+                  <form method="post" action="/admin/comptes/<?= (int)$c['id'] ?>/debloquer" style="display:inline;">
+                    <button class="btn btn-success btn-sm" type="submit">Débloquer</button>
+                  </form>
+                <?php endif; ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    <?php endif; ?>
+  </div>
 </div>
 </body>
 </html>
