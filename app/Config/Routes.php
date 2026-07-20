@@ -30,6 +30,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
 
         $routes->get('prefixes', 'PrefixeController::index');
         $routes->post('prefixes/create', 'PrefixeController::create');
+        $routes->get('prefixes/(:num)/edit', 'PrefixeController::edit/$1');
+        $routes->post('prefixes/(:num)/update', 'PrefixeController::update/$1');
         $routes->post('prefixes/(:num)/toggle', 'PrefixeController::toggleActif/$1');
 
         // Barèmes de frais (retrait / transfert), modifiables

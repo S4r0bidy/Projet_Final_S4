@@ -62,7 +62,8 @@
           <?php endif; ?>
         </td>
         <td>
-          <form method="post" action="/admin/prefixes/<?= (int)$p['id'] ?>/toggle">
+          <a href="/admin/prefixes/<?= (int)$p['id'] ?>/edit">Modifier</a>
+          <form method="post" action="/admin/prefixes/<?= (int)$p['id'] ?>/toggle" style="display:inline;">
             <button type="submit">Basculer</button>
           </form>
         </td>
