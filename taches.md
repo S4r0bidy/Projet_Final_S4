@@ -5,8 +5,8 @@
 - [X] Configuration CodeIgniter 4
 - [X] Configurer la connexion SQLite dans `.env` (`database.default.DBDriver = SQLite3`, `database.default.database = database.db`)
 - [X] Créer la base à partir de `base.sql`
-- [] Mettre en place la structure de dossiers : `Controllers/Admin`, `Controllers/Client`, `Models`, `Views/admin`, `Views/client`
-- [ ] Définir les routes de base (`app/Config/Routes.php`) : groupe `admin` et groupe `client`
+- [X] Mettre en place la structure de dossiers : `Controllers/Admin`, `Controllers/Client`, `Models`, `Views/admin`, `Views/client`
+- [X] Définir les routes de base (`app/Config/Routes.php`) : groupe `admin` et groupe `client`
 
 ## Phase 1 — Authentification
 
