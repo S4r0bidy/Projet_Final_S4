@@ -161,9 +161,9 @@ ORDER BY o.date_operation DESC;
 -- DONNÉES DE BASE / TEST
 -- =====================================================================
 
--- Administrateur par défaut (mot de passe à hasher côté application : "admin123")
+-- Administrateur par défaut (mot de passe : "admin123")
 INSERT INTO administrateurs (username, password, nom) VALUES
-('admin', '$2y$10$replace_with_a_real_password_hash', 'Administrateur Principal');
+('admin', '$2y$10$vY5imkZiZRxIq5U6fwhUwu0p4GvFWKIoJFUy.jJGf/TstsFbx9T8a', 'Administrateur Principal');
 
 -- Opérateurs télécom réels (Madagascar)
 INSERT INTO operateurs_telecom (nom) VALUES

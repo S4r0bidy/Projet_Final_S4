@@ -44,6 +44,9 @@
 
         <button type="submit">Se connecter</button>
     </form>
+
+    <br>
+    <a href="/" style="display:block; text-align:center; color:#1e88e5; text-decoration:none;">&larr; Retour à l'accueil</a>
 </div>
 </body>
 </html>
