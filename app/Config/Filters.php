@@ -34,8 +34,15 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'clientAuth' => \App\Filters\ClientAuthFilter::class,
+        'adminAuth'  => \App\Filters\AdminAuthFilter::class,
     ];
 
+    // public array $aliases = [
+    // // ... filtres existants
+    // 'clientAuth' => \App\Filters\ClientAuthFilter::class,
+    // 'adminAuth'  => \App\Filters\AdminAuthFilter::class,
+    // ];
     /**
      * List of special required filters.
      *

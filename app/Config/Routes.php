@@ -75,4 +75,6 @@ $routes->group('client', ['namespace' => 'App\Controllers\Client'], function ($r
 
         $routes->get('historique', 'HistoriqueController::index');
     });
+
+    
 });
