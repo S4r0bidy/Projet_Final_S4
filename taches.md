@@ -1,6 +1,6 @@
 # Simulateur d'opérateur Mobile Money
 
-# TODO - Projet 
+# TODO - Projet V1
 
 ## Phase 1 — Conception
 ### Base de données
@@ -121,3 +121,210 @@
 - [X] Génération d'une référence unique par opération (ex : `OP-20260720-000123`)
 - [X] Gestion des erreurs métier : solde insuffisant, préfixe invalide, montant hors barème, compte destinataire introuvable
 - [X] Journalisation systématique de chaque opération dans la table `operations`
+
+
+## TO DO V2
+
+# Phase 1-1 — Base de données
+
+## Commission des transferts inter-opérateurs
+
+- [ ] Créer une table `commission_operateur`
+
+Cette table doit contenir :
+
+- [ ] opérateur destination
+- [ ] pourcentage supplémentaire
+- [ ] date de création
+- [ ] statut actif
+
+## Situation des gains
+- [ ] Ajouter l'information :
+    - même opérateur
+    - autre opérateur
+
+## Situation des transferts
+
+Créer une nouvelle vue ou table permettant de calculer :
+
+- [ ] Total à envoyer vers Orange Money
+- [ ] Total à envoyer vers Airtel Money
+- [ ] Total à envoyer vers Telma
+- [ ] Total à envoyer vers les autres opérateurs
+
+# Phase 1-2 — Modèles
+
+## Créer ou modifier les modèles
+
+- [ ] Modifier `PrefixeModel.java`
+- [ ] Créer `OperateurModel.java`
+- [ ] Créer `CommissionOperateurModel.java`
+- [ ] Modifier `OperationModel.java`
+
+## Gestion des opérateurs
+- [ ] CRUD opérateur:
+  - [ ] Ajouter un opérateur
+  - [ ] Modifier un opérateur
+  - [ ] Supprimer
+
+## Gestion des commissions
+- [ ]CRUD commissiom:
+  - [ ] Ajouter une commission
+  - [ ] Modifier une commission
+  - [ ] Supprimer
+  - [ ] Calcul automatique des commissions
+
+# Phase 1-3 — Interface Opérateur
+
+## Gestion des opérateurs
+
+Créer
+
+- [ ] `operateur.php`
+
+Fonctionnalités
+
+- [ ] Ajouter un opérateur
+- [ ] Modifier
+- [ ] Supprimer
+- [ ] Rechercher
+
+## Gestion des commissions
+
+Créer
+
+- [ ] `commission.php`
+
+Fonctionnalités
+
+- [ ] Ajouter un pourcentage
+- [ ] Modifier
+- [ ] Désactiver
+
+## Situation des gains
+
+Modifier
+
+- [ ] `gains.php`
+
+Afficher séparément
+
+- [ ] Gains sur les retraits
+- [ ] Gains des transferts internes
+- [ ] Gains des transferts vers les autres opérateurs
+
+
+## Situation des montants à envoyer
+
+Créer
+
+- [ ] `SituationOperateur.php`
+
+Afficher
+
+- [ ] Nom opérateur
+- [ ] Nombre de transferts
+- [ ] Montant total
+- [ ] Date
+
+# Phase 1-4 — Interface Client
+
+## Option "Inclure les frais"
+
+Modifier
+
+- [ ] `transfert/index.php`
+
+Ajouter
+
+- [ ] Case à cocher
+
+```
+☐ Inclure les frais de retrait
+```
+
+Traitement (JavaScript)
+
+- [ ] Si coché
+    - le destinataire reçoit exactement le montant demandé
+    - l'expéditeur paie également les frais
+
+- [ ] Si non coché
+    - fonctionnement classique
+
+## Suppression des frais de retrait
+
+Modifier
+
+- [ ] Calcul des frais
+
+Règle
+
+- [ ] Aucun frais de retrait pour les autres opérateurs
+
+
+## Transfert multiple
+
+Modifier
+- Envoi multiple vers plusieurs numéros ( divisé le montant pour chaque numéro) même opérateur uniquement
+
+- [ ] Bouton "Ajouter un destinataire"
+
+## Répartition automatique
+
+Fonctions
+
+- [ ] Vérifier le montant total
+- [ ] Diviser automatiquement le montant
+- [ ] Arrondir correctement
+- [ ] Effectuer chaque transfert
+
+
+## Vérification des opérateurs
+
+Avant le transfert
+
+- [ ] Vérifier que tous les numéros appartiennent au même opérateur
+
+Si non
+
+- [ ] Refuser le transfert
+
+Message
+
+```
+Tous les destinataires doivent appartenir au même opérateur.
+```
+
+---
+
+# Phase 1-5 — Historique
+
+Ajouter
+
+- [ ] Opérateur destinataire
+- [ ] Type de transfert
+- [ ] Commission supplémentaire
+- [ ] Frais inclus (Oui / Non)
+
+# Phase 1-6 — Statistiques
+
+Créer
+
+- [ ] Statistiques des transferts internes
+
+Créer
+
+- [ ] Statistiques des transferts externes
+
+Créer
+
+- [ ] Statistiques par opérateur
+
+Créer
+
+- [ ] Montants envoyés par opérateur
+
+Créer
+
+- [ ] Total des commissions supplémentaires
