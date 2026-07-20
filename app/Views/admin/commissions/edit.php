@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modifier le barème</title>
+  <title>Modifier commission</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/custom.css">
 </head>
@@ -28,57 +28,41 @@
           <li class="nav-item"><a class="nav-link text-danger" href="/admin/logout">Déconnexion</a></li>
         </ul>
       </div>
-    </div>
   </nav>
 
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
       <div class="card shadow-sm p-4">
-        <h2 class="mb-4">Modifier le barème</h2>
+        <h2 class="mb-4">Modifier la commission</h2>
 
-        <?php if (session('message')): ?>
-          <div class="alert alert-success"><?= esc(session('message')) ?></div>
-        <?php endif; ?>
         <?php if (session('error')): ?>
           <div class="alert alert-danger"><?= esc(session('error')) ?></div>
         <?php endif; ?>
 
-        <form method="post" action="/admin/baremes/<?= (int)$bareme['id'] ?>/update">
+        <form method="post" action="/admin/commissions/<?= (int)$commission['id'] ?>/update">
           <div class="mb-3">
-            <label class="form-label">Type d'opération</label>
-            <select name="type_operation_id" class="form-select" required>
-              <?php foreach (($types ?? []) as $type): ?>
-                <option value="<?= (int)$type['id'] ?>" <?= ((int)$bareme['type_operation_id'] === (int)$type['id']) ? 'selected' : '' ?>>
-                  <?= esc($type['libelle']) ?>
+            <label class="form-label">Opérateur destination</label>
+            <select name="operateur_destination_id" class="form-select" disabled>
+              <?php foreach (($operateurs ?? []) as $op): ?>
+                <option value="<?= (int)$op['id'] ?>" <?= ((int)$op['id'] === (int)$commission['operateur_destination_id']) ? 'selected' : '' ?>>
+                  <?= esc($op['nom']) ?>
                 </option>
               <?php endforeach; ?>
             </select>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Montant min (Ar)</label>
-            <input type="number" step="0.01" name="montant_min" class="form-control" required value="<?= (float)$bareme['montant_min'] ?>">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Montant max (Ar) — laisser vide si illimité</label>
-            <input type="number" step="0.01" name="montant_max" class="form-control" value="<?= $bareme['montant_max'] !== null ? (float)$bareme['montant_max'] : '' ?>">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Frais (Ar)</label>
-            <input type="number" step="0.01" name="frais" class="form-control" required value="<?= (float)$bareme['frais'] ?>">
+            <label class="form-label">Pourcentage (%)</label>
+            <input type="number" step="0.01" min="0.01" name="pourcentage" class="form-control" required
+                   value="<?= number_format((float)$commission['pourcentage'], 2, '.', '') ?>">
           </div>
 
           <div class="d-flex gap-2">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <a href="/admin/baremes" class="btn btn-outline-secondary">Annuler</a>
+            <a href="/admin/commissions" class="btn btn-outline-secondary">Annuler</a>
           </div>
         </form>
       </div>
-    </div>
   </div>
-</div>
 </body>
 </html>
-
