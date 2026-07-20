@@ -34,6 +34,21 @@ class PrefixeModel extends Model
                     ->first();
     }
 
+    /**
+     * Récupère l'opérateur associé à un numéro de téléphone.
+     * Retourne les infos de l'opérateur (id, nom) ou null si inconnu.
+     */
+    public function getOperateurByNumero(string $numeroTelephone): ?array
+    {
+        $prefixeTexte = substr($numeroTelephone, 0, 3);
+
+        return $this->select('operateurs_telecom.*')
+                    ->join('operateurs_telecom', 'operateurs_telecom.id = prefixes.operateur_telecom_id')
+                    ->where('prefixe', $prefixeTexte)
+                    ->where('actif', 1)
+                    ->first();
+    }
+
     public function activer(int $id): bool
     {
         return $this->update($id, ['actif' => 1]);

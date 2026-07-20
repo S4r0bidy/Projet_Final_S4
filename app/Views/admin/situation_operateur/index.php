@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Situation des comptes</title>
+  <title>Situation des opérateurs</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/custom.css">
 </head>
@@ -28,71 +28,61 @@
           <li class="nav-item"><a class="nav-link text-danger" href="/admin/logout">Déconnexion</a></li>
         </ul>
       </div>
-    </div>
   </nav>
 
-  <h1 class="mb-4">Situation des comptes clients</h1>
+  <h1 class="mb-4">Situation des montants à envoyer aux opérateurs</h1>
 
   <?php if (session('message')): ?>
     <div class="alert alert-success"><?= esc(session('message')) ?></div>
   <?php endif; ?>
-  <?php if (session('error')): ?>
-    <div class="alert alert-danger"><?= esc(session('error')) ?></div>
-  <?php endif; ?>
 
   <div class="card shadow-sm p-3">
-    <?php if (empty($comptes)): ?>
-      <p class="text-muted">Aucun compte client pour le moment.</p>
+    <?php if (empty($situations)): ?>
+      <p class="text-muted">Aucun transfert effectué pour le moment.</p>
     <?php else: ?>
+      <div class="row g-3 mb-4">
+        <?php 
+        $totalGeneral = 0;
+        foreach ($situations as $s): 
+          $totalGeneral += (float)$s['montant_total'];
+        ?>
+          <div class="col-md-3">
+            <div class="card text-white bg-info p-3 text-center">
+              <div class="h5"><?= esc($s['operateur_nom'] ?? '') ?></div>
+              <div class="display-6 fw-bold"><?= number_format((float)$s['montant_total'], 2, ',', ' ') ?> Ar</div>
+              <div><?= (int)$s['nb_transferts'] ?> transfert(s)</div>
+              <small>Dernier : <?= esc($s['derniere_operation'] ?? '') ?></small>
+            </div>
+        <?php endforeach; ?>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-striped table-hover">
           <thead class="table-light">
             <tr>
-              <th>Numéro</th>
               <th>Opérateur</th>
-              <th>Solde</th>
-              <th>Statut</th>
-              <th>Nb Opérations</th>
-              <th>Date création</th>
-              <th>Actions</th>
+              <th>Nombre de transferts</th>
+              <th>Montant total</th>
+              <th>Dernière opération</th>
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($comptes as $c): ?>
+          <?php foreach ($situations as $s): ?>
             <tr>
-              <td>
-                <a href="/admin/comptes/<?= (int)$c['id'] ?>"><?= esc($c['numero_telephone']) ?></a>
-              </td>
-              <td><?= esc($c['operateur_telecom'] ?? '-') ?></td>
-              <td><?= number_format((float)($c['solde'] ?? 0), 2, ',', ' ') ?> Ar</td>
-              <td>
-                <?php if (($c['statut'] ?? '') === 'ACTIF'): ?>
-                  <span class="badge bg-success">Actif</span>
-                <?php else: ?>
-                  <span class="badge bg-danger">Bloqué</span>
-                <?php endif; ?>
-              </td>
-              <td><?= (int)($c['nb_operations'] ?? 0) ?></td>
-              <td><?= esc($c['date_creation'] ?? '') ?></td>
-              <td>
-                <?php if (($c['statut'] ?? '') === 'ACTIF'): ?>
-                  <form method="post" action="/admin/comptes/<?= (int)$c['id'] ?>/bloquer" style="display:inline;">
-                    <button class="btn btn-danger btn-sm" type="submit">Bloquer</button>
-                  </form>
-                <?php else: ?>
-                  <form method="post" action="/admin/comptes/<?= (int)$c['id'] ?>/debloquer" style="display:inline;">
-                    <button class="btn btn-success btn-sm" type="submit">Débloquer</button>
-                  </form>
-                <?php endif; ?>
-              </td>
+              <td><strong><?= esc($s['operateur_nom'] ?? '') ?></strong></td>
+              <td><?= (int)$s['nb_transferts'] ?></td>
+              <td><?= number_format((float)$s['montant_total'], 2, ',', ' ') ?> Ar</td>
+              <td><?= esc($s['derniere_operation'] ?? '') ?></td>
             </tr>
           <?php endforeach; ?>
           </tbody>
         </table>
       </div>
+
+      <div class="h3 text-info fw-bold mt-3">
+        Total à envoyer : <?= number_format($totalGeneral, 2, ',', ' ') ?> Ar
+      </div>
     <?php endif; ?>
   </div>
-</div>
 </body>
 </html>
-

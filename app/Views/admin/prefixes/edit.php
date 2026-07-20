@@ -17,9 +17,12 @@
           <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Accueil</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/prefixes">Préfixes</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/operateurs">Opérateurs</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/commissions">Commissions</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/baremes">Barèmes</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/comptes">Comptes</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/gains">Gains</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/situation-operateurs">Situation</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/admin/statistiques">Statistiques</a></li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link text-danger" href="/admin/logout">Déconnexion</a></li>
