@@ -20,14 +20,15 @@
           <li class="nav-item"><a class="nav-link" href="/admin/commissions">Commissions</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/baremes">Barèmes</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/comptes">Comptes</a></li>
-          <li class="nav-item"><a class="nav-link" href="/admin/gains">Gains</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/admin/gains">Gains</a></li>
           <li class="nav-item"><a class="nav-link" href="/admin/situation-operateurs">Situation</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/admin/statistiques">Statistiques</a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/statistiques">Statistiques</a></li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link text-danger" href="/admin/logout">Déconnexion</a></li>
         </ul>
       </div>
+    </div>
   </nav>
 
   <h1 class="mb-4">Situation des gains via les différents frais</h1>
@@ -58,6 +59,7 @@
             <?= array_sum(array_column($gainsRetraits, 'nb_operations')) ?> opération(s)
           </p>
         </div>
+      </div>
     </div>
 
     <!-- Gains des transferts internes -->
@@ -78,6 +80,7 @@
             <?= array_sum(array_column($gainsTransfertsInternes, 'nb_operations')) ?> transfert(s) interne(s)
           </p>
         </div>
+      </div>
     </div>
 
     <!-- Gains des transferts vers autres opérateurs -->
@@ -98,11 +101,13 @@
             <?= array_sum(array_column($gainsTransfertsExternes, 'nb_operations')) ?> transfert(s) externe(s)
           </p>
         </div>
+      </div>
     </div>
+  </div><!-- /.row -->
 
   <div class="card shadow-sm p-3 mt-3">
     <h3>Détail complet</h3>
-    <?php if (empty($gains)): ?>
+    <?php if (empty($gainsDetail)): ?>
       <p class="text-muted">Aucune opération pour le moment.</p>
     <?php else: ?>
       <div class="table-responsive">
@@ -141,5 +146,6 @@
       </div>
     <?php endif; ?>
   </div>
+</div><!-- /.wrap -->
 </body>
 </html>

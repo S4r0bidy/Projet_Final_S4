@@ -129,17 +129,17 @@
 
 ## Commission des transferts inter-opérateurs
 
-- [ ] Créer une table `commission_operateur`
+- [X] Créer une table `commission_operateur`
 
 Cette table doit contenir :
 
-- [ ] opérateur destination
-- [ ] pourcentage supplémentaire
-- [ ] date de création
-- [ ] statut actif
+- [X] opérateur destination
+- [X] pourcentage supplémentaire
+- [X] date de création
+- [X] statut actif
 
 ## Situation des gains
-- [ ] Ajouter l'information :
+- [X] Ajouter l'information :
     - même opérateur
     - autre opérateur
 
@@ -147,32 +147,32 @@ Cette table doit contenir :
 
 Créer une nouvelle vue ou table permettant de calculer :
 
-- [ ] Total à envoyer vers Orange Money
-- [ ] Total à envoyer vers Airtel Money
-- [ ] Total à envoyer vers Telma
-- [ ] Total à envoyer vers les autres opérateurs
+- [X] Total à envoyer vers Orange Money
+- [X] Total à envoyer vers Airtel Money
+- [X] Total à envoyer vers Telma
+- [X] Total à envoyer vers les autres opérateurs
 
 # Phase 1-2 — Modèles
 
 ## Créer ou modifier les modèles
 
-- [ ] Modifier `PrefixeModel.java`
-- [ ] Créer `OperateurModel.java`
-- [ ] Créer `CommissionOperateurModel.java`
-- [ ] Modifier `OperationModel.java`
+- [X] Modifier `PrefixeModel.java`
+- [X] Créer `OperateurModel.java`
+- [X] Créer `CommissionOperateurModel.java`
+- [X] Modifier `OperationModel.java`
 
 ## Gestion des opérateurs
-- [ ] CRUD opérateur:
-  - [ ] Ajouter un opérateur
-  - [ ] Modifier un opérateur
-  - [ ] Supprimer
+- [X] CRUD opérateur:
+  - [X] Ajouter un opérateur
+  - [X] Modifier un opérateur
+  - [X] Supprimer
 
 ## Gestion des commissions
-- [ ]CRUD commissiom:
-  - [ ] Ajouter une commission
-  - [ ] Modifier une commission
-  - [ ] Supprimer
-  - [ ] Calcul automatique des commissions
+- [X]CRUD commissiom:
+  - [X] Ajouter une commission
+  - [X] Modifier une commission
+  - [X] Supprimer
+  - [X] Calcul automatique des commissions
 
 # Phase 1-3 — Interface Opérateur
 
@@ -180,52 +180,52 @@ Créer une nouvelle vue ou table permettant de calculer :
 
 Créer
 
-- [ ] `operateur.php`
+- [X] `operateur.php`
 
 Fonctionnalités
 
-- [ ] Ajouter un opérateur
-- [ ] Modifier
-- [ ] Supprimer
-- [ ] Rechercher
+- [X] Ajouter un opérateur
+- [X] Modifier
+- [X] Supprimer
+- [X] Rechercher
 
 ## Gestion des commissions
 
 Créer
 
-- [ ] `commission.php`
+- [X] `commission.php`
 
 Fonctionnalités
 
-- [ ] Ajouter un pourcentage
-- [ ] Modifier
-- [ ] Désactiver
+- [X] Ajouter un pourcentage
+- [X] Modifier
+- [X] Désactiver
 
 ## Situation des gains
 
 Modifier
 
-- [ ] `gains.php`
+- [X] `gains.php`
 
 Afficher séparément
 
-- [ ] Gains sur les retraits
-- [ ] Gains des transferts internes
-- [ ] Gains des transferts vers les autres opérateurs
+- [X] Gains sur les retraits
+- [X] Gains des transferts internes
+- [X] Gains des transferts vers les autres opérateurs
 
 
 ## Situation des montants à envoyer
 
 Créer
 
-- [ ] `SituationOperateur.php`
+- [X] `SituationOperateur.php`
 
 Afficher
 
-- [ ] Nom opérateur
-- [ ] Nombre de transferts
-- [ ] Montant total
-- [ ] Date
+- [X] Nom opérateur
+- [X] Nombre de transferts
+- [X] Montant total
+- [X] Date
 
 # Phase 1-4 — Interface Client
 
@@ -233,11 +233,11 @@ Afficher
 
 Modifier
 
-- [ ] `transfert/index.php`
+- [X] `transfert/index.php`
 
 Ajouter
 
-- [ ] Case à cocher
+- [X] Case à cocher
 
 ```
 ☐ Inclure les frais de retrait
@@ -245,22 +245,22 @@ Ajouter
 
 Traitement (JavaScript)
 
-- [ ] Si coché
+- [X] Si coché
     - le destinataire reçoit exactement le montant demandé
     - l'expéditeur paie également les frais
 
-- [ ] Si non coché
+- [X] Si non coché
     - fonctionnement classique
 
 ## Suppression des frais de retrait
 
 Modifier
 
-- [ ] Calcul des frais
+- [X] Calcul des frais
 
 Règle
 
-- [ ] Aucun frais de retrait pour les autres opérateurs
+- [X] Aucun frais de retrait pour les autres opérateurs
 
 
 ## Transfert multiple
@@ -268,27 +268,27 @@ Règle
 Modifier
 - Envoi multiple vers plusieurs numéros ( divisé le montant pour chaque numéro) même opérateur uniquement
 
-- [ ] Bouton "Ajouter un destinataire"
+- [X] Bouton "Ajouter un destinataire"
 
 ## Répartition automatique
 
 Fonctions
 
-- [ ] Vérifier le montant total
-- [ ] Diviser automatiquement le montant
-- [ ] Arrondir correctement
-- [ ] Effectuer chaque transfert
+- [X] Vérifier le montant total
+- [X] Diviser automatiquement le montant
+- [X] Arrondir correctement
+- [X] Effectuer chaque transfert
 
 
 ## Vérification des opérateurs
 
 Avant le transfert
 
-- [ ] Vérifier que tous les numéros appartiennent au même opérateur
+- [X] Vérifier que tous les numéros appartiennent au même opérateur
 
 Si non
 
-- [ ] Refuser le transfert
+- [X] Refuser le transfert
 
 Message
 
@@ -302,29 +302,29 @@ Tous les destinataires doivent appartenir au même opérateur.
 
 Ajouter
 
-- [ ] Opérateur destinataire
-- [ ] Type de transfert
-- [ ] Commission supplémentaire
-- [ ] Frais inclus (Oui / Non)
+- [X] Opérateur destinataire
+- [X] Type de transfert
+- [X] Commission supplémentaire
+- [X] Frais inclus (Oui / Non)
 
 # Phase 1-6 — Statistiques
 
 Créer
 
-- [ ] Statistiques des transferts internes
+- [X] Statistiques des transferts internes
 
 Créer
 
-- [ ] Statistiques des transferts externes
+- [X] Statistiques des transferts externes
 
 Créer
 
-- [ ] Statistiques par opérateur
+- [X] Statistiques par opérateur
 
 Créer
 
-- [ ] Montants envoyés par opérateur
+- [X] Montants envoyés par opérateur
 
 Créer
 
-- [ ] Total des commissions supplémentaires
+- [X] Total des commissions supplémentaires
