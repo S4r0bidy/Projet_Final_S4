@@ -328,3 +328,8 @@ Créer
 Créer
 
 - [X] Total des commissions supplémentaires
+
+Notion d'epargne 
+Pour chaque client, il choisit le pourcentage de l'epargne 
+Par exemple 20 % epargne donc si le client recoit un tranfert venant de quelqu'un d'autre le 20% du montant recu vas dans l'epargne
+Faire une page pour saisir les pourcentage à épargner pour le client 

@@ -95,6 +95,9 @@ CREATE TABLE comptes_clients (
     FOREIGN KEY (prefixe_id) REFERENCES prefixes(id)
 );
 
+ALTER TABLE comptes_clients ADD COLUMN solde_epargne REAL DEFAULT 0;
+ALTER TABLE comptes_clients ADD COLUMN pourcentage_epargne REAL DEFAULT 0;
+
 -- Historique de toutes les operations (depot / retrait / transfert)
 CREATE TABLE operations (
     id                      INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -116,7 +116,9 @@ $routes->group('client', ['namespace' => 'App\Controllers\Client'], function ($r
         $routes->get('verifier-operateur', 'TransfertController::verifierOperateur');
         $routes->get('calculer-details', 'TransfertController::calculerDetails');
 
-
+        $routes->get('epargne', 'EpargneController::index');
+        $routes->get('epargne', 'EpargneController::update');
+        
         $routes->get('historique', 'HistoriqueController::index');
     });
 });

@@ -9,7 +9,7 @@ class CompteClientModel extends Model
 {
     protected $table            = 'comptes_clients';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['numero_telephone', 'prefixe_id', 'solde', 'statut'];
+    protected $allowedFields    = ['numero_telephone', 'prefixe_id', 'solde', 'statut', 'solde_epargne', 'pourcentage_epargne'];
     protected $useTimestamps    = false; // date_creation gérée par DEFAULT CURRENT_TIMESTAMP
 
     public const STATUT_ACTIF  = 'ACTIF';
@@ -94,5 +94,20 @@ class CompteClientModel extends Model
         return $this->set('solde', 'solde - ' . (float) $montant, false)
                      ->where('id', $id)
                      ->update();
+    }
+
+    public function crediterEpargne(int $id, float $montant){
+        $compte = $this->find($id);
+
+        $this->update($id, [
+            'solde_epargne' => 
+                $compte['solde_epargne'] + montant
+        ]);
+    }
+
+    public fonction modifierPourcentage(int $id, float $pourcentage){
+        return $this->update($id, [
+            'pourcentage_epargne'=>$pourcentage
+        ]);
     }
 }
