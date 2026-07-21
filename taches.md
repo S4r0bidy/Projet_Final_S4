@@ -328,3 +328,58 @@ Créer
 Créer
 
 - [X] Total des commissions supplémentaires
+
+
+Pourcentage ranger dans la base 
+Creer table 
+model
+controlleur
+pourcentage de promotion de frais de transfert sur le meme operateur 
+si j'integrer exemple 50% et tout se diminu de 50 %
+
+
+CREATE TABLE promotion_frais (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type_operation_id INTEGER NOT NULL,   -- lié à TRANSFERT (extensible à d'autres types plus tard)
+    pourcentage DECIMAL(5,2) NOT NULL,    -- ex: 50.00 pour 50%
+    actif BOOLEAN NOT NULL DEFAULT 1,
+    date_debut DATETIME NULL,             -- optionnel : promo limitée dans le temps
+    date_fin DATETIME NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class PromotionFraisModel extends Model
+{
+    protected $table = 'promotion_frais';
+    protected $allowedFields = ['type_operation_id', 'pourcentage', 'actif', 'date_debut', 'date_fin'];
+
+    /**
+     * Retourne le pourcentage de réduction actif pour un type d'opération donné
+     * (0 si aucune promo active)
+     */
+    public function getPourcentageActif(int $typeOperationId): float
+    {
+        $now = date('Y-m-d H:i:s');
+
+        $promo = $this->where('type_operation_id', $typeOperationId)
+            ->where('actif', 1)
+            ->groupStart()
+                ->where('date_debut IS NULL')
+                ->orWhere('date_debut <=', $now)
+            ->groupEnd()
+            ->groupStart()
+                ->where('date_fin IS NULL')
+                ->orWhere('date_fin >=', $now)
+            ->groupEnd()
+            ->orderBy('id', 'DESC')
+            ->first();
+
+        return $promo ? (float) $promo['pourcentage'] : 0.0;
+    }
+}

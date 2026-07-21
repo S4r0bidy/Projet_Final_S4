@@ -302,3 +302,19 @@ INSERT INTO operations (reference, type_operation_id, compte_source_id, compte_d
 ('OP-20260701-000001', 1, NULL, 1, NULL, 15000, 0, 15000, 'REUSSI'),
 ('OP-20260705-000002', 3, 1, 3, 8, 5000, 200, 5200, 'REUSSI'),
 ('OP-20260710-000003', 2, 3, NULL, 3, 20000, 700, 20700, 'REUSSI');
+
+
+CREATE TABLE pourcentages_frais (
+    id                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage_reduction    REAL NOT NULL,
+    type_operation_id INTEGER NOT NULL,
+    source_operation_id INTEGER NOT NULL,
+    destination_operation_id INTEGER NOT NULL,
+    actif INTEGER NOT NULL DEFAULT 1,
+    date_debut DATETIME,
+    date_fin DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (type_operation_id) REFERENCES type_operation(id),
+    FOREIGN KEY (source_operation_id) REFERENCES operateurs_telecom(id),
+    FOREIGN KEY (destination_operation_id) REFERENCES operateurs_telecom(id)
+);   
